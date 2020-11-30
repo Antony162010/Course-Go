@@ -14,6 +14,12 @@ func (tl *taskList) deleteTask(i int) {
 	tl.tasks = append(tl.tasks[:i], tl.tasks[i+1:]...)
 }
 
+func (tl *taskList) showTasks() {
+	for _, task := range tl.tasks {
+		fmt.Printf("%+v\n", *task)
+	}
+}
+
 type task struct {
 	name        string
 	description string
@@ -54,7 +60,7 @@ func main() {
 	t3 := &task{
 		name:        "Diego",
 		description: "Best frontend",
-		completed:   true,
+		completed:   false,
 	}
 	tl.addTask(t3)
 	fmt.Println(tl.tasks)
@@ -62,4 +68,13 @@ func main() {
 	tl.deleteTask(1)
 	fmt.Println(tl.tasks)
 
+	for i := 0; i < len(tl.tasks); i++ {
+		fmt.Println(*tl.tasks[i])
+	}
+
+	for _, task := range tl.tasks {
+		fmt.Println(*task)
+	}
+
+	tl.showTasks()
 }
