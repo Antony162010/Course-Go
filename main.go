@@ -54,8 +54,6 @@ func main() {
 			t1, t2,
 		},
 	}
-	fmt.Printf("%+v\n", *tl.tasks[1])
-	// fmt.Printf("%+v\n", *t)
 
 	t3 := &task{
 		name:        "Diego",
@@ -68,13 +66,10 @@ func main() {
 	tl.deleteTask(1)
 	fmt.Println(tl.tasks)
 
-	for i := 0; i < len(tl.tasks); i++ {
-		fmt.Println(*tl.tasks[i])
-	}
-
-	for _, task := range tl.tasks {
-		fmt.Println(*task)
-	}
-
 	tl.showTasks()
+
+	mapTasks := make(map[string]*taskList)
+
+	mapTasks["Friends"] = tl
+	mapTasks["Friends"].showTasks()
 }
