@@ -1,65 +1,65 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-)
+import "fmt"
 
-type calc struct {
+type taskList struct {
+	tasks []*task
 }
 
-func (calc) makeOperation(input string, operator string) int {
-	valores := strings.Split(input, operator)
-
-	operador1 := parseText(valores[0])
-	operador2 := parseText(valores[1])
-	switch operator {
-	case "+":
-		return operador1 + operador2
-	case "-":
-		return operador1 - operador2
-	case "*":
-		return operador1 * operador2
-	case "/":
-		return operador1 / operador2
-	default:
-		return 0
-	}
+func (tl *taskList) addTask(t *task) {
+	tl.tasks = append(tl.tasks, t)
 }
 
-func parseText(input string) int {
-	operador, err1 := strconv.Atoi(input)
-
-	if err1 != nil {
-		fmt.Println(err1)
-	}
-	return operador
+func (tl *taskList) deleteTask(i int) {
+	tl.tasks = append(tl.tasks[:i], tl.tasks[i+1:]...)
 }
 
-func readInput() string {
-	scaner := bufio.NewScanner(os.Stdin)
-	scaner.Scan()
-
-	return scaner.Text()
+type task struct {
+	name        string
+	description string
+	completed   bool
 }
+
+func (t *task) updateName(name string) {
+	t.name = name
+}
+
+func (t *task) updateDescription(description string) {
+	t.description = description
+}
+
+func (t *task) updateCompleted() {
+	t.completed = !t.completed
+}
+
 func main() {
-	operations := []string{"+", "-", "*", "/"}
-
-	fmt.Print("Ingresa tu suma: ")
-	operation := readInput()
-
-	operator := ""
-	for i := 0; i < len(operations); i++ {
-		if strings.Contains(operation, operations[i]) {
-			operator = operations[i]
-		}
+	t1 := &task{
+		name:        "Antony",
+		description: "Best developer",
+		completed:   true,
+	}
+	t2 := &task{
+		name:        "Christian",
+		description: "Best engineer",
 	}
 
-	c := calc{}
-	result := c.makeOperation(operation, operator)
-	fmt.Print("Resultado: ", result)
+	tl := &taskList{
+		tasks: []*task{
+			t1, t2,
+		},
+	}
+	fmt.Printf("%+v\n", *tl.tasks[1])
+	// fmt.Printf("%+v\n", *t)
+
+	t3 := &task{
+		name:        "Diego",
+		description: "Best frontend",
+		completed:   true,
+	}
+	tl.addTask(t3)
+	fmt.Println(tl.tasks)
+
+	tl.deleteTask(1)
+	fmt.Println(tl.tasks)
 
 }
