@@ -3,11 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello world.")
-	imprime()
-}
-
-func imprime() {
-	defer fmt.Println("Inicio")
-	fmt.Println("Final")
+	var message string = "Mensaje"
+	message2 := "Mensaje 2"
+	fmt.Println("Hello world")
+	fmt.Println(message)
+	fmt.Println(message2)
 }
